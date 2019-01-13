@@ -140,14 +140,7 @@ Emitter.prototype.emit = function(){
   var msg = msgpack.encode([uid, packet, opts]);
 
   // publish
-  if (opts.rooms && opts.rooms.length) {
-    opts.rooms.forEach(function(room) {
-      var chnRoom = chn + room + '#';
-      self.redis.publish(chnRoom, msg);
-    });
-  } else {
-    this.redis.publish(chn, msg);
-  }
+  this.redis.publish(chn, msg);
 
   // reset state
   this._rooms = [];
